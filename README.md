@@ -1,8 +1,9 @@
-# Archives du Journal des TICE
+# Le Journal des TICE
 
-Index public des éditions de la newsletter TICE du CRBTP : pour chaque numéro, son titre, sa date et son lien.
+Newsletter TICE du CRBTP. Chaque édition est une page web autonome, servie par GitHub Pages.
 
-Le contenu des éditions n'est pas publié ici. Chaque numéro vit à son propre lien, partagé en interne.
+- `index.html` : l'archive, qui liste les éditions de la plus récente à la plus ancienne.
+- `editions.json` : source de vérité de cette liste (titre, date, lien).
+- `editions/AAAA-MM-JJ_slug/` : une édition, sa page et ses images.
 
-- Page servie par GitHub Pages depuis la branche `main`.
-- `editions.json` est la source de vérité de la liste ; `index.html` la lit au chargement.
+Les pages portent `noindex` : elles s'ouvrent pour qui a le lien, mais ne sont pas destinées aux moteurs de recherche.

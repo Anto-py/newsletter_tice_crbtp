@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Page publique mais non indexable : elle nomme des collègues et montre des
+     locaux de l'école. Retirer cette ligne pour la laisser entrer dans Google. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Le Journal des TICE : Rentrée 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Inter:wght@400;600&display=swap">
+
+<style>
+/* =========================================================================
+   NEWSLETTER DE L'ÉQUIPE — gabarit
+   Charte rétrofuturisme simplifiée (skill retrofuturisme_site) :
+   palette et typographie de la charte, ornements réduits à l'essentiel.
+   Tout le contenu d'une édition vit dans l'objet EDITION, en bas de fichier.
+   ========================================================================= */
+
+:root {
+  /* Palette de la charte */
+  --teal:        #127676;
+  --teal-clair:  #2FA3A3;
+  --orange:      #E4632E;
+  --jaune:       #E3A535;
+  --ink:         #0D1617;
+  --paper:       #F2EFE6;
+  --teal-sombre: #0B4E4E;
+
+  /* Asymétrie : le fond de page est le cran 1, les cartes prennent le cran 2 */
+  --r-carte:    8px 24px 8px 24px;
+  --r-carte-sm: 12px 4px 12px 4px;
+
+  /* Rythme vertical */
+  --gouttiere: clamp(1.1rem, 5vw, 2rem);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: var(--ink);
+  /* Motif Horta en SVG inline : remplace le fond Art Nouveau en .jpg de la
+     charte. Aucune requête, et le poids reste tenable sur un smartphone. */
+  background-image:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(18,118,118,0.30), transparent 60%),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23127676' stroke-width='1.1' opacity='0.22'%3E%3Cpath d='M0,80 Q40,40 80,80 T160,80'/%3E%3Cpath d='M80,0 Q120,40 80,80 T80,160'/%3E%3Ccircle cx='80' cy='80' r='5'/%3E%3Ccircle cx='0' cy='80' r='3'/%3E%3Ccircle cx='160' cy='80' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed, fixed;
+  color: var(--paper);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* Les éléments graphiques entrant par un côté commencent hors cadre, ce qui
+   étend la surface de débordement. La coupe doit être portée par la racine :
+   posée sur `body`, le navigateur ne l'applique pas au viewport et la page
+   glisse de côté sous le doigt. `hidden` interdit le défilement à
+   l'utilisateur mais pas le défilement programmatique ; `clip` interdit les
+   deux, et sert de repli aux navigateurs qui ne le connaissent pas. */
+html {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+.nl {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--gouttiere) 0;
+}
+
+/* ---------- Bloc d'ouverture -------------------------------------------- */
+
+.ouverture {
+  position: relative;
+  text-align: center;
+  padding: clamp(3rem, 14vw, 5.5rem) clamp(1rem, 5vw, 2rem) clamp(2.5rem, 9vw, 4rem);
+}
+
+/* Médaillon du bloc d'ouverture : le logo TICE, commun à toutes les éditions,
+   posé sur un support crème. Son mot est noir et n'a plus son liseré blanc,
+   donc sur le fond sombre du gabarit il disparaîtrait ; le crème le rend
+   lisible. Le support est carré à coins asymétriques, comme les cartes
+   d'éléments : un cercle rognerait le mot, qui déborde du disque du dessin. */
+.ouverture-logo {
+  display: block;
+  width: clamp(96px, 26vw, 118px);
+  height: auto;
+  margin: 0 auto 1.4rem;
+  padding: 9px;
+  background: var(--paper);
+  border: 3px solid var(--teal);
+  border-radius: var(--r-carte-sm);
+  box-shadow: inset 0 0 0 2px var(--orange);
+}
+
+.ouverture-numero {
+  display: inline-block;
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--jaune);
+  border-radius: 50px;
+  padding: 7px 17px;
+  margin-bottom: 1.4rem;
+}
+
+.ouverture-titre {
+  font-family: 'Anton', 'Oswald', Impact, sans-serif;
+  font-weight: 400;
+  /* 12vw rognait le titre sur un écran de 412 px : « LE JOURNAL DES » dépassait
+     la colonne et le débordement était coupé par le clip de la racine, donc
+     invisible au contrôle de scrollWidth. */
+  font-size: clamp(1.9rem, 9vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin: 0 0 1.2rem;
+}
+
+.ouverture-accroche {
+  font-size: clamp(1.02rem, 4.4vw, 1.2rem);
+  color: rgba(242, 239, 230, 0.82);
+  margin: 0 auto;
+  max-width: 34ch;
+}
+
+/* Ornement de coin, variante A (feuille simple) : bloc d'ouverture seulement */
+.ornement {
+  position: absolute;
+  width: clamp(40px, 13vw, 58px);
+  height: auto;
+  color: var(--teal-clair);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.ornement.haut-gauche { top: 10px; left: 0; }
+/* Miroir par la propriété `scale`, pas par `transform` : la révélation écrit
+   dans `transform` pour faire entrer l'ornement par le côté, et les deux se
+   seraient écrasés. */
+.ornement.bas-droit   { bottom: 4px; right: 0; scale: -1; }
+
+/* Séparateur végétal */
+.separateur {
+  display: flex;
+  margin: 0 0 1.6rem;
+  align-items: center;
+  gap: 14px;
+  color: var(--teal-clair);
+  font-size: 1.15rem;
+}
+.separateur::before,
+.separateur::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal) 25%, var(--teal) 75%, transparent);
+}
+
+/* ---------- Rubriques ---------------------------------------------------- */
+
+.rubrique { margin: clamp(2.6rem, 11vw, 4.2rem) 0; }
+
+.rubrique-entete {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.4rem;
+}
+
+.rubrique-icone {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--teal-clair);
+  border-radius: 50%;
+  background: rgba(18, 118, 118, 0.22);
+  color: var(--jaune);
+  font-size: 1.35rem;       /* taille du fallback emoji */
+  line-height: 1;
+  overflow: hidden;
+}
+.rubrique-icone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rubrique-icone svg { width: 26px; height: 26px; }
+
+.rubrique-titre {
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 5.6vw, 1.6rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin: 0;
+}
+
+/* Image d'illustration de la rubrique entière */
+.rubrique-image {
+  width: 100%;
+  border: 2px solid var(--teal);
+  border-radius: var(--r-carte);
+  overflow: hidden;
+  margin-bottom: 1.3rem;
+  display: block;
+}
+.rubrique-image img { width: 100%; height: auto; display: block; }
+
+/* ---------- Éléments ----------------------------------------------------- */
+
+.element {
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--teal);
+  border-radius: var(--r-carte);
+  box-shadow: inset 0 0 0 2px var(--orange);
+  padding: clamp(1rem, 4.5vw, 1.4rem);
+  margin-bottom: 1.1rem;
+}
+.element:last-child { margin-bottom: 0; }
+
+.element-image {
+  border: 2px solid var(--teal-sombre);
+  border-radius: var(--r-carte-sm);
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+}
+.element-image img { width: 100%; height: auto; display: block; }
+
+.element-texte { margin: 0; }
+
+.element-lien {
+  display: inline-block;
+  margin-top: 0.7rem;
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teal-sombre);
+  text-decoration: none;
+  box-shadow: inset 0 -2px 0 var(--orange);
+  padding: 11px 2px;         /* zone tactile confortable */
+  min-height: 44px;
+}
+.element-lien:hover,
+.element-lien:focus-visible { color: var(--orange); }
+.element-lien:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.element-lien::after { content: ' ↗'; }
+
+/* ---------- Pied de page ------------------------------------------------- */
+
+.pied {
+  text-align: center;
+  /* Le creux du bas réserve la place du bouton flottant : sans lui, sur un
+     écran étroit, le coin du lien passe sous la zone tactile du bouton. */
+  padding: clamp(2.5rem, 10vw, 4rem) 0 clamp(6.5rem, 20vw, 8rem);
+}
+
+.pied-lien {
+  display: inline-block;
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  text-decoration: none;
+  border: 2px solid var(--jaune);
+  border-radius: 14px 5px 14px 5px;
+  padding: 13px 22px;
+  min-height: 44px;
+}
+.pied-lien:hover,
+.pied-lien:focus-visible { background: var(--jaune); color: var(--ink); }
+.pied-lien:focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
+
+/* ---------- Bouton retour en haut ---------------------------------------- */
+
+.retour-haut {
+  position: fixed;
+  right: clamp(0.9rem, 4vw, 1.6rem);
+  bottom: clamp(0.9rem, 4vw, 1.6rem);
+  z-index: 50;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--teal);
+  border-radius: 5px 14px 5px 14px;
+  background: var(--jaune);
+  color: var(--ink);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink);
+  opacity: 0;                /* piloté au scroll par le script */
+  /* Inerte et hors du parcours clavier tant que le scroll ne l'a pas révélé :
+     opacity seule laissait une tabulation s'arrêter sur un bouton invisible. */
+  pointer-events: none;
+  visibility: hidden;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.retour-haut.actif { pointer-events: auto; visibility: visible; }
+.retour-haut:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+.retour-haut:focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
+
+/* ---------- Scrollytelling ----------------------------------------------- */
+
+/* --tx et --ty sont posés par le script selon la famille du bloc : les textes
+   montent depuis le bas, les éléments graphiques entrent par un côté, en
+   alternance droite/gauche (docs/BRAINSTORMING.md). */
+.reveler {
+  opacity: 0;
+  transform: translate(var(--tx, 0px), var(--ty, 40px));
+  transition:
+    opacity var(--dur, 0.8s) cubic-bezier(0.22, 0.75, 0.3, 1) var(--retard, 0s),
+    transform var(--dur, 0.8s) cubic-bezier(0.22, 0.75, 0.3, 1) var(--retard, 0s);
+  will-change: opacity, transform;
+}
+.reveler.vu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveler {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+  .retour-haut { transition: none; }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Icônes de rubrique par défaut, dessinées à la charte (courbes Horta).
+     Une édition peut leur préférer une image uploadée : voir EDITION.rubriques[].icone -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="ico-actus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M3 18V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 0 2 2H5a2 2 0 0 1-2-2Z"/>
+    <path d="M6.5 9h7M6.5 12.5h7M6.5 16h4"/>
+  </symbol>
+  <symbol id="ico-portrait" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <circle cx="12" cy="8.5" r="3.6"/>
+    <path d="M5 20c.6-3.8 3.5-6 7-6s6.4 2.2 7 6"/>
+  </symbol>
+  <symbol id="ico-agenda" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <rect x="3.5" y="5" width="17" height="15" rx="2.5"/>
+    <path d="M3.5 10h17M8 3v4M16 3v4"/>
+    <circle cx="12" cy="15" r="1.6" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="ico-outil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M12 3.2a6 6 0 0 1 3.4 10.9v1.6H8.6v-1.6A6 6 0 0 1 12 3.2Z"/>
+    <path d="M9.4 18.2h5.2M10.4 20.8h3.2"/>
+  </symbol>
+  <symbol id="ico-rappel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M12 4a5.5 5.5 0 0 1 5.5 5.5c0 4 1.5 5.5 2 6.5H4.5c.5-1 2-2.5 2-6.5A5.5 5.5 0 0 1 12 4Z"/>
+    <path d="M10 19a2 2 0 0 0 4 0"/>
+  </symbol>
+</svg>
+
+<div class="nl" id="haut">
+
+  <header class="ouverture">
+    <svg class="ornement haut-gauche" viewBox="0 0 60 60" fill="currentColor" aria-hidden="true">
+      <path d="M5,5 C5,5 20,5 30,15 C40,25 35,40 35,40 C35,40 25,30 15,30 C5,30 5,5 5,5 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="8" cy="8" r="3"/>
+      <path d="M15,15 Q20,10 25,18" fill="none" stroke="currentColor" stroke-width="1"/>
+    </svg>
+
+    <!-- Logo TICE : déposé à côté de la page, dans le dossier de l'édition.
+         Décoratif, le titre de l'édition porte déjà le mot. -->
+    <img class="ouverture-logo" src="logo_tice.png" alt="">
+
+    <p class="ouverture-numero" id="ed-numero"></p>
+    <h1 class="ouverture-titre" id="ed-titre"></h1>
+    <p class="ouverture-accroche" id="ed-accroche"></p>
+
+    <svg class="ornement bas-droit" viewBox="0 0 60 60" fill="currentColor" aria-hidden="true">
+      <path d="M5,5 C5,5 20,5 30,15 C40,25 35,40 35,40 C35,40 25,30 15,30 C5,30 5,5 5,5 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="8" cy="8" r="3"/>
+      <path d="M15,15 Q20,10 25,18" fill="none" stroke="currentColor" stroke-width="1"/>
+    </svg>
+  </header>
+
+  <p class="separateur" aria-hidden="true">❧</p>
+
+  <main id="rubriques"></main>
+
+  <footer class="pied">
+    <p class="separateur" aria-hidden="true">❀</p>
+    <a class="pied-lien" id="lien-archive" target="_blank" rel="noopener">Toutes les newsletters</a>
+  </footer>
+
+</div>
+
+<button class="retour-haut" id="retour-haut" type="button" aria-label="Revenir en haut de la page">↑</button>
+
+<script>
+/* =========================================================================
+   1. CONTENU DE L'ÉDITION — la seule partie à réécrire d'un numéro à l'autre.
+      Modèle de données : voir ../SPECS.md
+        edition   : { titre, numero, accroche }
+        rubriques : [{ type, titre, icone, image_rubrique, elements: [...] }]
+        element   : { texte, image?, lien? }
+      icone           : "#ico-actus" (jeu interne) | URL d'image | null (emoji)
+      image_rubrique  : URL d'image | null
+      image           : URL d'image | null
+      Les URL d'image sont relatives : les fichiers vivent à côté de la page.
+      ------------------------------------------------------------------
+      ÉDITION DU 2026-09-20. Texte de référence : editions/2026-09-20_rentree_2026.md
+   ========================================================================= */
+
+const LIEN_ARCHIVE = "https://anto-py.github.io/newsletter_tice_crbtp/";
+
+const EDITION = {
+  edition: {
+    titre: "Le Journal des TICE",
+    numero: "Rentrée 2026",
+    accroche: "Cabanga reprend des couleurs, nos projecteurs demandent grâce, et l'IA se fait interroger."
+  },
+  rubriques: [
+    {
+      type: "mise_en_avant",
+      titre: "Les héros de l'école",
+      icone: "logo_cabanga.png",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Jonathan a repris la gestion de Cabanga, et le travail accompli est considérable. Merci à lui ! De nouvelles fonctionnalités arrivent. On pourra notamment bientôt savoir quels jours un élève a été absent, et si l'absence est excusée ou non. Jonathan viendra nous présenter tout ça sous peu."
+        }
+      ]
+    },
+    {
+      type: "rappel",
+      titre: "Rappel utile",
+      icone: "#ico-rappel",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Un projecteur laissé sous tension s'use pour rien. L'éteindre prend deux gestes, dans cet ordre. D'abord le bouton 2, sur le projecteur. Ensuite l'interrupteur 1, sur le boîtier, pour couper le courant.",
+          image: "projecteurs_boutons.jpg"
+        },
+        {
+          texte: "Le bouton AV/Mute n'éteint pas le projecteur. Il coupe l'image, la lampe continue de chauffer et de s'user. À l'allumage, c'est la manœuvre inverse : interrupteur 1, puis bouton 2. Et on n'oublie pas les baffles, allumées puis éteintes elles aussi."
+        },
+        {
+          texte: "Boîtier en panne, ou pas de boîtier du tout ? Il reste la méthode du balai. On attrape le manche, on vise l'interrupteur sous le projecteur, on appuie délicatement. Délicatement : le balai sert de doigt, pas de bélier. Même geste pour rallumer. Ensuite, on prévient l'équipe technique avec le QR code posé à côté du boîtier, parce que le balai est une solution de dépannage, pas un mode de vie.",
+          image: "projecteur_dessous.jpg"
+        }
+      ]
+    },
+    {
+      type: "actualites",
+      titre: "Quoi de neuf sur Microsoft",
+      icone: "logo_copilot.svg",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Microsoft a ajouté des notebooks à Copilot. Le principe : tu rassembles des documents dans un carnet, Word, PowerPoint, PDF, et Copilot ne répond plus qu'à partir de ceux-là. C'est moins abouti que NotebookLM, chez Google, qui reste la référence du genre. Mais pour interroger ses propres documents de cours sans quitter les outils de l'école, ça rend déjà service."
+        }
+      ]
+    },
+    {
+      type: "outil",
+      titre: "L'application du mois",
+      icone: "#ico-outil",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Frise Factory construit des frises et des lignes du temps en quelques minutes, sans rien installer. C'est gratuit, et c'est un enseignant qui l'a développé et l'héberge sur son site, La Classe d'Histoire. Un prof qui outille gratuitement les autres profs, on aime.",
+          lien: "https://frisefactory.laclassedhistoire.fr/"
+        }
+      ]
+    },
+    {
+      type: "actualites",
+      titre: "Pour aller plus loin",
+      icone: "#ico-actus",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "L'IA est-elle un risque existentiel pour l'humanité ? C'est l'actualité du moment. Benoît Raphaël a mené l'enquête pour Flint et en a fait un récit qui se déroule au fil du scroll. C'est très sourcé et ça ne prend pas parti. Un conseil : garde-la pour un grand écran, elle n'est pas faite pour le smartphone. À lire pour soi, et à regarder comme objet pédagogique : le procédé donne des idées pour nos propres cours. Au passage, on a appris un mot, le scrollytelling.",
+          lien: "https://pages.flint.media/generation-ia/controle-ia-risque-existentiel/"
+        }
+      ]
+    }
+  ]
+};
+
+/* =========================================================================
+   2. MOTEUR — commun à toutes les éditions, ne se touche pas au numéro.
+   ========================================================================= */
+
+/* Emoji de repli, par type de rubrique connu. */
+const EMOJI_PAR_TYPE = {
+  actualites: "📰",
+  mise_en_avant: "🌟",
+  agenda: "📅",
+  outil: "🧰",
+  rappel: "📌"
+};
+const EMOJI_DEFAUT = "❖";
+
+function esc(texte) {
+  return String(texte).replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+/* Trois profils de vitesse, distribués en boucle dans chaque famille.
+   Deux blocs voisins n'ont jamais le même : c'est ce qui se voit à l'écran. */
+const PROFILS = [
+  { dy: 56, dur: 1.05, retard: 0 },
+  { dy: 28, dur: 0.6,  retard: 0.06 },
+  { dy: 42, dur: 0.85, retard: 0.03 }
+];
+
+/* Course latérale des éléments graphiques, en pixels. */
+const ECART_LATERAL = 64;
+
+/* Deux séries de blocs graphiques, chacune alternant droite/gauche à partir de
+   la gauche, plus une série verticale pour les textes. Les ornements et
+   séparateurs sont dans une série à part des icônes et images : c'est ce qui
+   fait entrer chaque ornement de son propre côté, vers l'intérieur. */
+const FAMILLES = [
+  { selecteur: ".ornement, .separateur",                          lateral: true  },
+  /* L'image glisse à l'intérieur de son cadre, qui la rogne : la translation
+     porte donc sur l'image, pas sur le cadre, sinon elle déborde de la carte. */
+  { selecteur: ".ouverture-logo, .rubrique-icone, .rubrique-image img, .element-image img", lateral: true  },
+  { selecteur: ".rubrique-titre, .rubrique-image, .element-image, .element, .pied-lien", lateral: false }
+];
+
+function marquer(el, index, lateral) {
+  const p = PROFILS[index % PROFILS.length];
+  el.classList.add("reveler");
+  el.style.setProperty("--dur", p.dur + "s");
+  el.style.setProperty("--retard", p.retard + "s");
+  if (lateral) {
+    const sens = index % 2 === 0 ? -1 : 1;   /* 0 : par la gauche, 1 : par la droite */
+    el.style.setProperty("--tx", (sens * ECART_LATERAL) + "px");
+    el.style.setProperty("--ty", "0px");
+  } else {
+    el.style.setProperty("--tx", "0px");
+    el.style.setProperty("--ty", p.dy + "px");
+  }
+}
+
+function htmlIcone(rubrique) {
+  const ic = rubrique.icone;
+  if (!ic) {
+    return esc(EMOJI_PAR_TYPE[rubrique.type] || EMOJI_DEFAUT);
+  }
+  if (ic.startsWith("#")) {
+    return `<svg aria-hidden="true"><use href="${esc(ic)}"></use></svg>`;
+  }
+  return `<img src="${esc(ic)}" alt="">`;
+}
+
+function htmlElement(element) {
+  const image = element.image
+    ? `<div class="element-image"><img src="${esc(element.image)}" alt=""></div>`
+    : "";
+  const lien = element.lien
+    ? `<a class="element-lien" href="${esc(element.lien)}" target="_blank" rel="noopener">En savoir plus</a>`
+    : "";
+  return `<article class="element">${image}<p class="element-texte">${esc(element.texte)}</p>${lien}</article>`;
+}
+
+function rendre(donnees) {
+  document.getElementById("ed-numero").textContent = donnees.edition.numero;
+  document.getElementById("ed-titre").textContent = donnees.edition.titre;
+  document.getElementById("ed-accroche").textContent = donnees.edition.accroche;
+  document.getElementById("lien-archive").href = LIEN_ARCHIVE;
+
+  const hote = document.getElementById("rubriques");
+  hote.innerHTML = donnees.rubriques.map(rubrique => {
+    const imageRubrique = rubrique.image_rubrique
+      ? `<div class="rubrique-image"><img src="${esc(rubrique.image_rubrique)}" alt=""></div>`
+      : "";
+    return `
+      <section class="rubrique" data-type="${esc(rubrique.type)}">
+        <div class="rubrique-entete">
+          <span class="rubrique-icone" aria-hidden="true">${htmlIcone(rubrique)}</span>
+          <h2 class="rubrique-titre">${esc(rubrique.titre)}</h2>
+        </div>
+        ${imageRubrique}
+        ${rubrique.elements.map(htmlElement).join("")}
+      </section>`;
+  }).join("");
+}
+
+/* Un bloc se révèle dès qu'il est entré dans les 92 % hauts de l'écran, et se
+   réarme dès qu'il en est sorti entièrement : l'animation reprend donc à
+   chaque remontée. Le réarmement se produisant hors de l'écran, il ne se voit
+   pas. La seconde clause couvre la butée basse, où un bloc coincé dans les
+   derniers 8 % ne franchirait jamais le seuil, la page ne défilant plus. */
+function doitEtreVu(el) {
+  const r = el.getBoundingClientRect();
+  if (r.bottom <= -2 || r.top >= window.innerHeight + 2) return false;
+  if (r.top < window.innerHeight * 0.92) return true;
+  return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+}
+
+function animer() {
+  const blocs = [];
+  FAMILLES.forEach(famille => {
+    document.querySelectorAll(famille.selecteur).forEach((el, index) => {
+      marquer(el, index, famille.lateral);
+      blocs.push(el);
+    });
+  });
+
+  /* Mouvement réduit : tout est visible d'emblée, aucune animation à mener. */
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    blocs.forEach(b => b.classList.add("vu"));
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    blocs.forEach(b => b.classList.add("vu"));
+    return;
+  }
+
+  function evaluer() {
+    blocs.forEach(el => el.classList.toggle("vu", doitEtreVu(el)));
+  }
+
+  /* L'observateur se déclenche aux deux franchissements qui nous intéressent,
+     l'entrée et la sortie ; la passe au fil du scroll rattrape ce qu'il aurait
+     manqué, un saut de défilement ou une page trop courte pour défiler. */
+  const observateur = new IntersectionObserver(evaluer, {
+    threshold: 0,
+    rootMargin: "0px 0px -8% 0px"
+  });
+  blocs.forEach(b => observateur.observe(b));
+
+  let enAttente = false;
+  window.addEventListener("scroll", () => {
+    if (enAttente) return;
+    enAttente = true;
+    requestAnimationFrame(() => { evaluer(); enAttente = false; });
+  }, { passive: true });
+
+  evaluer();
+}
+
+/* Le bouton gagne en opacité avec la distance parcourue, pas avec la
+   proportion lue : une édition courte peut ne jamais l'atteindre pleinement,
+   et c'est le comportement voulu (docs/BRAINSTORMING.md). */
+function bouton() {
+  const btn = document.getElementById("retour-haut");
+  const PLEINE_OPACITE_A = 900; // pixels de scroll
+  let enAttente = false;
+
+  function majOpacite() {
+    const op = Math.min(window.scrollY / PLEINE_OPACITE_A, 1);
+    btn.style.opacity = op.toFixed(3);
+    btn.classList.toggle("actif", op > 0.12);
+    enAttente = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (enAttente) return;
+    enAttente = true;
+    requestAnimationFrame(majOpacite);
+  }, { passive: true });
+
+  btn.addEventListener("click", () => {
+    const sobre = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: sobre ? "auto" : "smooth" });
+  });
+
+  majOpacite();
+}
+
+rendre(EDITION);
+animer();
+bouton();
+</script>
+
+</body>
+</html>
