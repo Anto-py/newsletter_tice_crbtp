@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archives : Le Journal des TICE</title>
+<meta name="description" content="Index des éditions de la newsletter TICE du CRBTP : titre, date et lien de chaque numéro.">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Inter:wght@400;600&display=swap">
+
+<style>
+/* =========================================================================
+   ARCHIVE PUBLIQUE — index des éditions.
+   N'affiche que titre, date et lien (voir ../SPECS.md, décision de
+   confidentialité) : aucun contenu de rubrique, aucune photo, aucun nom.
+   Même charte que le gabarit d'édition, sans scrollytelling.
+   ========================================================================= */
+
+:root {
+  --teal:        #127676;
+  --teal-clair:  #2FA3A3;
+  --orange:      #E4632E;
+  --jaune:       #E3A535;
+  --ink:         #0D1617;
+  --paper:       #F2EFE6;
+  --teal-sombre: #0B4E4E;
+  --gouttiere: clamp(1.1rem, 5vw, 2rem);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(18,118,118,0.30), transparent 60%),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23127676' stroke-width='1.1' opacity='0.22'%3E%3Cpath d='M0,80 Q40,40 80,80 T160,80'/%3E%3Cpath d='M80,0 Q120,40 80,80 T80,160'/%3E%3Ccircle cx='80' cy='80' r='5'/%3E%3Ccircle cx='0' cy='80' r='3'/%3E%3Ccircle cx='160' cy='80' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed, fixed;
+  color: var(--paper);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+.page { max-width: 680px; margin: 0 auto; padding: 0 var(--gouttiere); }
+
+/* ---------- En-tête ------------------------------------------------------ */
+
+.entete {
+  text-align: center;
+  padding: clamp(3rem, 12vw, 5rem) 0 clamp(1.6rem, 6vw, 2.4rem);
+}
+.entete-sur-titre {
+  display: inline-block;
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--jaune);
+  border-radius: 50px;
+  padding: 7px 17px;
+  margin: 0 0 1.3rem;
+}
+.entete-titre {
+  font-family: 'Anton', 'Oswald', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.1rem, 10vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+.entete-intro {
+  color: rgba(242, 239, 230, 0.82);
+  margin: 0 auto;
+  max-width: 40ch;
+}
+
+.separateur {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--teal-clair);
+  font-size: 1.15rem;
+  margin: 0 0 2rem;
+}
+.separateur::before,
+.separateur::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal) 25%, var(--teal) 75%, transparent);
+}
+
+/* ---------- Liste des éditions ------------------------------------------- */
+
+.liste { list-style: none; margin: 0; padding: 0; }
+.liste li { margin-bottom: 1.1rem; }
+
+.edition {
+  display: block;
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--teal);
+  border-radius: 8px 24px 8px 24px;
+  box-shadow: inset 0 0 0 2px var(--orange);
+  padding: clamp(1rem, 4.5vw, 1.35rem);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.edition:hover,
+.edition:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 2px var(--orange), 0 10px 26px rgba(18, 118, 118, 0.35);
+}
+.edition:focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
+
+.edition-date {
+  display: block;
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-sombre);
+  margin-bottom: 0.35rem;
+}
+.edition-titre {
+  display: block;
+  font-family: 'Oswald', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 4.8vw, 1.35rem);
+  line-height: 1.3;
+  color: var(--ink);
+}
+.edition-titre::after {
+  content: ' ↗';
+  color: var(--orange);
+}
+
+/* État vide ou indisponible */
+.message {
+  background: rgba(18, 118, 118, 0.14);
+  border-left: 4px solid var(--teal-clair);
+  border-radius: 4px;
+  padding: 1.1rem 1.3rem;
+  color: rgba(242, 239, 230, 0.9);
+}
+
+/* ---------- Pied --------------------------------------------------------- */
+
+.pied {
+  text-align: center;
+  padding: clamp(2.5rem, 10vw, 4rem) 0 clamp(3rem, 12vw, 4.5rem);
+  font-size: 0.9rem;
+  color: rgba(242, 239, 230, 0.6);
+}
+.pied-ornement { color: var(--teal-clair); font-size: 1.4rem; margin: 0 0 1.2rem; }
+.pied-credit {
+  font-family: 'Oswald', 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(242, 239, 230, 0.8);
+  margin: 0 0 0.5rem;
+}
+.pied-lien {
+  color: var(--jaune);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.pied-lien:hover,
+.pied-lien:focus-visible { border-bottom-color: var(--jaune); }
+
+@media (prefers-reduced-motion: reduce) {
+  .edition { transition: none; }
+  .edition:hover, .edition:focus-visible { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="entete">
+    <p class="entete-sur-titre">Archives</p>
+    <h1 class="entete-titre">Le Journal des TICE</h1>
+    <p class="entete-intro">Toutes les éditions parues, de la plus récente à la plus ancienne.</p>
+  </header>
+
+  <p class="separateur" aria-hidden="true">❧</p>
+
+  <main id="zone">
+    <ul class="liste" id="liste"></ul>
+  </main>
+
+  <footer class="pied">
+    <p class="pied-ornement">✿</p>
+    <p class="pied-credit">
+      Made by <a class="pied-lien" href="https://www.linkedin.com/in/antonin-bareau/" target="_blank" rel="noopener noreferrer">Antonin Bareau</a>
+      avec l'aide essentielle d'un ou plusieurs LLM
+    </p>
+    <p>
+      <a class="pied-lien" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Licence Creative Commons : CC-BY-NC-SA</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+const zone = document.getElementById("zone");
+
+function esc(texte) {
+  return String(texte).replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+/* Accepte les trois granularités de date de la convention : AAAA, AAAA-MM,
+   AAAA-MM-JJ. Une date mal formée s'affiche telle quelle plutôt que "Invalid Date". */
+function dateLisible(brut) {
+  const morceaux = String(brut).split("-");
+  const [a, m, j] = morceaux;
+  const d = new Date(Date.UTC(+a, (+m || 1) - 1, +j || 1));
+  if (isNaN(d.getTime())) return esc(brut);
+  const options = morceaux.length === 1
+    ? { year: "numeric" }
+    : morceaux.length === 2
+      ? { year: "numeric", month: "long" }
+      : { year: "numeric", month: "long", day: "numeric" };
+  return d.toLocaleDateString("fr-BE", { ...options, timeZone: "UTC" });
+}
+
+function message(texte) {
+  zone.innerHTML = `<p class="message">${esc(texte)}</p>`;
+}
+
+function afficher(editions) {
+  if (!Array.isArray(editions) || editions.length === 0) {
+    message("Première édition à venir.");
+    return;
+  }
+  const triees = [...editions].sort((x, y) => String(y.date).localeCompare(String(x.date)));
+  zone.querySelector(".liste").innerHTML = triees.map(ed => `
+    <li>
+      <a class="edition" href="${esc(ed.lien)}" target="_blank" rel="noopener">
+        <span class="edition-date">${dateLisible(ed.date)}</span>
+        <span class="edition-titre">${esc(ed.titre)}</span>
+      </a>
+    </li>`).join("");
+}
+
+fetch("editions.json", { cache: "no-store" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(donnees => afficher(donnees.editions))
+  .catch(() => message("La liste des éditions n'a pas pu être chargée. Réessayez plus tard."));
+</script>
+
+</body>
+</html>
