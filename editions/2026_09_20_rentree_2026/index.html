@@ -528,6 +528,12 @@ const PROFILS = [
   { dy: 42, dur: 0.85, retard: 0.03 }
 ];
 
+/* Hauteur d'écran à laquelle un bloc se révèle, comptée depuis le haut : à
+   0.72, il faut l'avoir remonté de plus d'un quart d'écran, si bien que
+   l'animation se joue en pleine page et non dans le dernier centimètre du bas.
+   Monter vers 1 déclenche plus tôt, descendre vers 0 exige plus de défilement. */
+const SEUIL_REVELATION = 0.72;
+
 /* Course latérale des éléments graphiques, en pixels. */
 const ECART_LATERAL = 64;
 
@@ -602,15 +608,15 @@ function rendre(donnees) {
   }).join("");
 }
 
-/* Un bloc se révèle dès qu'il est entré dans les 92 % hauts de l'écran, et se
-   réarme dès qu'il en est sorti entièrement : l'animation reprend donc à
-   chaque remontée. Le réarmement se produisant hors de l'écran, il ne se voit
-   pas. La seconde clause couvre la butée basse, où un bloc coincé dans les
-   derniers 8 % ne franchirait jamais le seuil, la page ne défilant plus. */
+/* Un bloc se révèle une fois remonté au-dessus de SEUIL_REVELATION, et se
+   réarme dès qu'il est sorti entièrement de l'écran : l'animation reprend donc
+   à chaque remontée. Le réarmement se produisant hors de l'écran, il ne se voit
+   pas. La seconde clause couvre la butée basse, où un bloc coincé sous le seuil
+   ne le franchirait jamais, la page ne défilant plus. */
 function doitEtreVu(el) {
   const r = el.getBoundingClientRect();
   if (r.bottom <= -2 || r.top >= window.innerHeight + 2) return false;
-  if (r.top < window.innerHeight * 0.92) return true;
+  if (r.top < window.innerHeight * SEUIL_REVELATION) return true;
   return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
 }
 
@@ -643,7 +649,7 @@ function animer() {
      manqué, un saut de défilement ou une page trop courte pour défiler. */
   const observateur = new IntersectionObserver(evaluer, {
     threshold: 0,
-    rootMargin: "0px 0px -8% 0px"
+    rootMargin: "0px 0px -28% 0px"
   });
   blocs.forEach(b => observateur.observe(b));
 
