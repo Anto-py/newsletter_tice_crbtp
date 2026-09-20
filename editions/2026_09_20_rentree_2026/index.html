@@ -429,12 +429,23 @@ const EDITION = {
   edition: {
     titre: "Le Journal des TICE",
     numero: "Rentrée 2026",
-    accroche: "Cabanga reprend des couleurs, nos projecteurs demandent grâce, et l'IA se fait interroger."
+    accroche: "Cabanga continue à se développer, nos projecteurs demandent grâce, et l'IA se fait interroger."
   },
   rubriques: [
     {
+      type: "actualites",
+      titre: "Quoi de neuf sur Microsoft",
+      icone: "logo_copilot.svg",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Microsoft a ajouté des notebooks à Copilot. Le principe : tu rassembles des documents dans un carnet, Word, PowerPoint, PDF, et Copilot ne répond plus qu'à partir de ceux-là. C'est moins abouti que NotebookLM, chez Google, qui reste la référence du genre. Mais pour interroger ses propres documents de cours sans quitter les outils de l'école, ça rend déjà service."
+        }
+      ]
+    },
+    {
       type: "mise_en_avant",
-      titre: "Les héros de l'école",
+      titre: "Dans les coulisses",
       icone: "logo_cabanga.png",
       image_rubrique: null,
       elements: [
@@ -459,17 +470,6 @@ const EDITION = {
         {
           texte: "Boîtier en panne, ou pas de boîtier du tout ? Il reste la méthode du balai. On attrape le manche, on vise l'interrupteur sous le projecteur, on appuie délicatement. Délicatement : le balai sert de doigt, pas de bélier. Même geste pour rallumer. Ensuite, on prévient l'équipe technique avec le QR code posé à côté du boîtier, parce que le balai est une solution de dépannage, pas un mode de vie.",
           image: "projecteur_dessous.jpg"
-        }
-      ]
-    },
-    {
-      type: "actualites",
-      titre: "Quoi de neuf sur Microsoft",
-      icone: "logo_copilot.svg",
-      image_rubrique: null,
-      elements: [
-        {
-          texte: "Microsoft a ajouté des notebooks à Copilot. Le principe : tu rassembles des documents dans un carnet, Word, PowerPoint, PDF, et Copilot ne répond plus qu'à partir de ceux-là. C'est moins abouti que NotebookLM, chez Google, qui reste la référence du genre. Mais pour interroger ses propres documents de cours sans quitter les outils de l'école, ça rend déjà service."
         }
       ]
     },
