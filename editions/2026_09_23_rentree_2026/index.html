@@ -420,7 +420,7 @@ html {
       image           : URL d'image | null
       Les URL d'image sont relatives : les fichiers vivent à côté de la page.
       ------------------------------------------------------------------
-      ÉDITION DU 2026-09-20. Texte de référence : editions/2026-09-20_rentree_2026.md
+      ÉDITION DU 2026-09-23. Texte de référence : editions/2026_09_23_rentree_2026/texte.md
    ========================================================================= */
 
 const LIEN_ARCHIVE = "https://anto-py.github.io/newsletter_tice_crbtp/";
@@ -429,7 +429,7 @@ const EDITION = {
   edition: {
     titre: "Le Journal des TICE",
     numero: "Rentrée 2026",
-    accroche: "Cabanga continue à se développer, nos projecteurs demandent grâce, et l'IA se fait interroger."
+    accroche: "Cabanga continue à se développer, nos projecteurs demandent grâce, l'équipe TICE change de visage et l'IA se fait interroger."
   },
   rubriques: [
     {
@@ -440,6 +440,20 @@ const EDITION = {
       elements: [
         {
           texte: "Microsoft a ajouté des notebooks à Copilot. Le principe : tu rassembles des documents dans un carnet, Word, PowerPoint, PDF, et Copilot ne répond plus qu'à partir de ceux-là. C'est moins abouti que NotebookLM, chez Google, qui reste la référence du genre. Mais pour interroger ses propres documents de cours sans quitter les outils de l'école, ça rend déjà service."
+        }
+      ]
+    },
+    {
+      type: "mise_en_avant",
+      titre: "Équipe TICE",
+      icone: "#ico-portrait",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Damiano a quitté l'équipe. Les PC des salles informatiques mis à jour, dépannés, remis d'aplomb, c'était Damiano, avec une disponibilité de tous les instants. Merci pour tout le travail accompli, et bonne route."
+        },
+        {
+          texte: "Nasera reprend le poste, et donc les machines des salles informatiques. Bienvenue dans l'équipe, nous sommes sûrs qu'elle nous aidera à faire du bon boulot."
         }
       ]
     },
@@ -482,6 +496,20 @@ const EDITION = {
         {
           texte: "Frise Factory construit des frises et des lignes du temps en quelques minutes, sans rien installer. C'est gratuit, et c'est un enseignant qui l'a développé et l'héberge sur son site, La Classe d'Histoire. Un prof qui outille gratuitement les autres profs, on aime.",
           lien: "https://frisefactory.laclassedhistoire.fr/"
+        }
+      ]
+    },
+    {
+      type: "rappel",
+      titre: "Automatisation de la paperasse",
+      icone: "#ico-rappel",
+      image_rubrique: null,
+      elements: [
+        {
+          texte: "Le constat d'incident tourne tout seul. Sauf quand il ne tourne pas. Ces dernières semaines, les pièces jointes ne suivaient plus : l'annexe restait en route au lieu d'arriver avec le constat. La panne est réparée, mais elle a été trouvée par hasard, pas parce qu'on l'avait signalée."
+        },
+        {
+          texte: "D'où l'appel, aux enseignants, aux éducateurs et à la direction. Un fichier qui n'arrive pas, un message qui manque, un champ qui se remplit de travers : signale-le, même si ça te paraît minuscule, même si tu n'es pas sûr. Un message suffit. On ne répare pas ce qu'on ignore, et l'amélioration permanente ne se décrète pas depuis un bureau, elle se fait à plusieurs."
         }
       ]
     },
